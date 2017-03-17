@@ -1,3 +1,5 @@
+package mainPlayer;
+
 import javax.swing.*;
 
 /**
