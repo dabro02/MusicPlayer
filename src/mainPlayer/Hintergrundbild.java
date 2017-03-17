@@ -23,9 +23,9 @@ public class Hintergrundbild {
         Graphics2D g = img.createGraphics();
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 
-        for(float i = 0; i<w; i++) {
-            for(float j = 0; j<h; j++) {
-                g.setColor(new Color(0, 1f, 0.0f, ((i/w)*(j/h))));
+        for(float i = w; i>=0; i--) {
+            for(float j = h; j>=0; j--) {
+                g.setColor(new Color(1f, 0, 1f, ((i/w)*(j/h))));
                 g.drawLine((int) i, (int)j, (int)i, (int)j);
             }
         }
