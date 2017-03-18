@@ -17,7 +17,7 @@ public class Hintergrundbild {
         int h = 768;
 
         File imgtest = new File("src/mainPlayer/Pictures/Hintergrund.png");
-        if(!imgtest.exists())
+        if(imgtest.exists())
         {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
