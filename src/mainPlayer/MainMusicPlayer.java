@@ -8,6 +8,10 @@ import javax.swing.*;
 public class MainMusicPlayer {
     MainFrame frame1;
     JFrame frame;
+    int actualwidth = 1366;
+    int actualheight = 768;
+    int actualX = 277;
+    int actualY = 156;
 
     public static void main(String[] args)
     {
@@ -18,7 +22,8 @@ public class MainMusicPlayer {
             frame = new JFrame("dabromusic");
             frame1 = new MainFrame(this);
             frame.add(frame1);
-            frame.setBounds(277,156,1366,768);
+            frame.setBounds(actualX,actualY,actualwidth,actualheight);
+
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame1.updateMainFrame();
