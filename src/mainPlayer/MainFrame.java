@@ -57,7 +57,7 @@ public class MainFrame extends JPanel{
         catch(Exception e){}
 
         playButton = new Buttons(game.actualwidth/4-25,game.actualheight/12-25,50,50, play);
-        Hintergrundbild.getHintergrund();
+        Hintergrundbild.getHintergrund(game);
     }
 
 
@@ -70,7 +70,7 @@ public class MainFrame extends JPanel{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            g.drawImage(hintergrundbild1, 0, 0, null);
+            g.drawImage(hintergrundbild1, 0,0 , null);
         playButton.renderButtons(g);
         playButton.koordsUpdate(game.actualwidth/4-25,game.actualheight/12-25,50,50);
         g.drawRect(0,0,game.actualwidth/2,game.actualheight/6);

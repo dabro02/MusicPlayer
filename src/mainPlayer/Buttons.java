@@ -33,6 +33,7 @@ public class Buttons {
             g.setColor(Color.BLACK);
             g.drawRect(x-1,y-1,w+2,h+2);
             g.drawRect(x-2,y-2,w+4,h+4);
+            g.drawRect(x-3,y-3,w+6,h+6);
             g.drawImage(Icon , x,y,null);
             //System.out.println("ja");
         }
