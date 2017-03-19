@@ -22,8 +22,8 @@ public class Buttons {
     }
 
     void renderButtons(Graphics2D g){
-        g.setColor(Color.WHITE);
-        g.fillRect(x,y,w,h);
+        /*g.setColor(Color.WHITE);
+        g.fillRect(x,y,w,h);*/
         g.setColor(Color.BLACK);
         g.drawRect(x-1,y-1,w+2,h+2);
         g.drawImage(Icon , x, y,null);
@@ -41,7 +41,7 @@ public class Buttons {
     }
 
     public boolean buttonPointed(int mouseX, int mouseY){
-        if(mouseX >= x+10 && mouseX <= x+10 + w && mouseY >= y+30 && mouseY <= y+30 + h) {
+        if(mouseX >= x+10 && mouseX <= x+10+w && mouseY >= y+30 && mouseY <= y+30+h) {
             pointed = true;
             return pointed;
         }

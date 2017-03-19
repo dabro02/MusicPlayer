@@ -15,9 +15,8 @@ public class Hintergrundbild {
     public static void getHintergrund(MainMusicPlayer game){
         int w = game.actualwidth;
         int h = game.actualheight;
-
         File imgtest = new File("src/mainPlayer/Pictures/Hintergrund.png");
-        if(imgtest.exists())
+        if(!imgtest.exists())
         {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = img.createGraphics();
@@ -26,7 +25,7 @@ public class Hintergrundbild {
         for(float i = 0; i<=w; i++) {
             for(float j = 0; j<=h; j++) {
                 //rote farbe                             alpha-wert (transparenz 0<)
-                g.setColor(new Color(1f, 0, 1f, ((i/w)*(j/h))));
+                g.setColor(new Color(0.85f, 0, 0.6f, ((i/w)*(j/h))));
                 g.drawLine((int) i, (int)j, (int)i, (int)j);
                 //grüne farbe                            alpha-wert (transparenz 1<)
                 g.setColor(new Color(0, 1f, 0, ((1-(i/w))*(1-(j/h)))));

@@ -7,29 +7,32 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Daniel on 14.03.2017.
  */
 public class MainFrame extends JPanel{
     MainMusicPlayer game;
-    BufferedImage hintergrundbild1,play;
+    BufferedImage hintergrundbild1;
     Buttons playButton;
+
 
     MainFrame(MainMusicPlayer game)
     {
         this.game =game;
 
-
-
-
         game.frame.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-            }
-
+                    if (playButton.buttonPointed(e.getX(), e.getY()))
+                    {
+                        if (game.playOrPause) {
+                            game.playOrPause = false;
+                        } else {
+                            game.playOrPause = true;
+                        }
+                    }
+                }
             @Override
             public void mousePressed(MouseEvent e) {
 
@@ -50,14 +53,13 @@ public class MainFrame extends JPanel{
 
             }
         });
+        Hintergrundbild.getHintergrund(game);
 
         try{
-            play = ImageIO.read(new File("src/mainPlayer/Pictures/play.png"));
+            hintergrundbild1 = ImageIO.read(new File("src/mainPlayer/Pictures/Hintergrund.png"));
         }
         catch(Exception e){}
-
-        playButton = new Buttons(game.actualwidth/4-25,game.actualheight/12-25,50,50, play);
-        Hintergrundbild.getHintergrund(game);
+        playButton = new Buttons(game.actualwidth/4-25,game.actualheight/12-25,50,50, null);
     }
 
 
@@ -65,15 +67,18 @@ public class MainFrame extends JPanel{
     protected void paintComponent(Graphics g2){
         Graphics2D g = (Graphics2D) g2;
         super.paintComponent(g);
-            try {
-                hintergrundbild1 = ImageIO.read(new File("src/mainPlayer/Pictures/Hintergrund.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            g.drawImage(hintergrundbild1, 0,0 , null);
+        g.drawImage(hintergrundbild1, 0,0 , null);
+        g.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
+        g.fillRect(0,0,game.actualwidth/2,game.actualheight/6);
         playButton.renderButtons(g);
         playButton.koordsUpdate(game.actualwidth/4-25,game.actualheight/12-25,50,50);
-        g.drawRect(0,0,game.actualwidth/2,game.actualheight/6);
+        ButtonPictures.getParameters(game,g,game.actualwidth,game.actualheight);
+        if(game.playOrPause){
+            ButtonPictures.createPlay();
+        }
+        else {
+            ButtonPictures.createPause();
+        }
     }
 
 
@@ -110,8 +115,6 @@ public class MainFrame extends JPanel{
                 game.actualwidth = 1366;
                 game.frame.setBounds(game.actualX,game.actualY,game.actualwidth,game.actualheight);
             }
-
-
             repaint();
         }
     }
