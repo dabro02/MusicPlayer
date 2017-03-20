@@ -8,8 +8,9 @@ import javax.swing.*;
 public class MainMusicPlayer {
     MainFrame frame1;
     JFrame frame;
+    Lieder lieder;
     static boolean playOrPause = true;
-    static Lieder lieder;
+
     int actualwidth = 1366;
     int actualheight = 768;
     int actualX = 277;
@@ -19,17 +20,10 @@ public class MainMusicPlayer {
     {
 
         new MainMusicPlayer().start();
-        new Thread(new Runnable (){
-            @Override public void run() {
-                lieder = new Lieder();
-                //Kostruktor erstellen etc.
-                lieder.updateLieder();
-                }
-        }).start();
     }
         public void start()
         {
-
+            this.lieder = new Lieder();
             frame = new JFrame("dabromusic");
             frame1 = new MainFrame(this);
             frame.add(frame1);
