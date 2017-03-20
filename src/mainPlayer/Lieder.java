@@ -17,20 +17,25 @@ public class Lieder {
      */
     FileInputStream lied;
     AdvancedPlayer playMP3;
-    boolean play = false;
+    Thread playLieder;
+    Thread stopLieder;
 
     Lieder()
     {
-        new Thread(new Runnable (){
+        stopLieder = new Thread(new Runnable (){
             @Override public void run() {
-                stopLieder2();
+                System.out.println("stop");
+                stopLieder();
             }
-        }).start();
-        new Thread(new Runnable (){
+        });
+        stopLieder.start();
+        playLieder = new Thread(new Runnable (){
             @Override public void run() {
+                System.out.println("start");
                 playLieder();
             }
-        }).start();
+        });
+        playLieder.start();
     }
     public  void liederImportieren(){
         try {
@@ -56,7 +61,7 @@ public class Lieder {
         }
     }
 
-    public void stopLieder2() {
+    public void stopLieder() {
         while(true)
         {
             liederImportieren();
