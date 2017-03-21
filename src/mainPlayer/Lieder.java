@@ -1,15 +1,14 @@
 package mainPlayer;
 
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
-
 import java.io.FileInputStream;
 import static mainPlayer.ButtonPictures.game;
 
 /**
  * Created by Daniel on 18.03.2017.
  */
+
 public class Lieder {
     /*Liederklasse
     hieraus können die Lieder geladen werden
@@ -17,26 +16,33 @@ public class Lieder {
      */
     FileInputStream lied;
     AdvancedPlayer playMP3;
-    Thread playLieder;
-    Thread stopLieder;
+    Thread thread2;
+    Thread thread3;
 
     Lieder()
     {
-        stopLieder = new Thread(new Runnable (){
+        liederImportieren();
+        thread2 = new Thread(new Runnable (){
             @Override public void run() {
-                System.out.println("stop");
-                stopLieder();
-            }
+                while(true) {
+                    try {
+                        thread2.sleep(0,1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (!game.playOrPause) {
+                            try {
+                                playMP3.play();
+                            } catch (JavaLayerException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
         });
-        stopLieder.start();
-        playLieder = new Thread(new Runnable (){
-            @Override public void run() {
-                System.out.println("start");
-                playLieder();
-            }
-        });
-        playLieder.start();
+        thread2.start();
     }
+
     public  void liederImportieren(){
         try {
             lied = new FileInputStream("src/mainPlayer/Liedertest/Alan Walker - Alone.mp3");
@@ -46,35 +52,14 @@ public class Lieder {
     }
 
 
-    public void playLieder() {
-        while (true)
-        {
-            liederImportieren();
-            if (!game.playOrPause)
-            {
-                try {
-                    playMP3.play();
-                } catch (JavaLayerException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+    public void liederSuchen() {
+        thread3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-    public void stopLieder() {
-        while(true)
-        {
-            liederImportieren();
-           if (game.playOrPause) {
-               try {
-                   playMP3.stop();
-               }
-               catch(Exception e)
-               {
-
-               }
             }
-        }
+        });
+        thread3.start();
     }
 
 }

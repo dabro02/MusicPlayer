@@ -1,5 +1,7 @@
 package mainPlayer;
 
+import javazoom.jl.decoder.JavaLayerException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -28,8 +30,14 @@ public class MainFrame extends JPanel{
                     {
                         if (game.playOrPause) {
                             game.playOrPause = false;
+                            game.lieder.liederImportieren();
                         } else {
                             game.playOrPause = true;
+                            try {
+                                game.lieder.playMP3.close();
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -115,6 +123,7 @@ public class MainFrame extends JPanel{
                 game.actualwidth = 1366;
                 game.frame.setBounds(game.actualX,game.actualY,game.actualwidth,game.actualheight);
             }
+            //System.out.println(game.playOrPause);
             repaint();
         }
     }
