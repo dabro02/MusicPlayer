@@ -3,7 +3,6 @@ package mainPlayer;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -18,7 +17,7 @@ public class LiederSuchen {
             @Override
             public void run() {
 
-                liederSuchen("C:/Users", mp3Dateien);
+                liederSuchen("C:/Users");
                 System.out.println("finished");
                 System.out.println(mp3Dateien);
 
@@ -28,39 +27,36 @@ public class LiederSuchen {
         thread3.start();
     }
 
-    public void liederSuchen(String pathname, ArrayList mp3Dateien) {
+    public ArrayList liederSuchen(String pathname) {
+        ArrayList mp3files = null;
         try {
             String newPathname;
+
             File MP3files = new File(pathname);
             File[] dateien = MP3files.listFiles();
             for (File file : dateien) {
                 newPathname = file.getAbsolutePath();
                 if (file.isDirectory()) {
-
-
-                    liederSuchen(newPathname, mp3Dateien);
+                    liederSuchen(newPathname);
                 }
-
                 //funktioniert noch nciht die boolean abfrage
-                ifMP3(newPathname, file, mp3Dateien);
-
-                //System.out.println(newPathname);
+                ifMP3(newPathname, file, mp3files);
             }
 
         }
         catch(Exception e){
 
         }
+        return mp3files;
     }
 
-    public void ifMP3(String pathname, File file, ArrayList mp3Dateien)
+    public void ifMP3(String pathname, File file, ArrayList mp3files)
     {
         if(pathname.substring(pathname.length()-3, pathname.length()).equalsIgnoreCase("mp3") ){
-            System.out.println(pathname.substring(pathname.length()-3, pathname.length()));
-            //return true;
+            mp3files.add(file);
         }
         else {
-            //return false;
+
         }
 
     }
