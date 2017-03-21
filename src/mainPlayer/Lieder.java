@@ -2,7 +2,14 @@ package mainPlayer;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
+
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+
 import static mainPlayer.ButtonPictures.game;
 
 /**
@@ -17,7 +24,8 @@ public class Lieder {
     FileInputStream lied;
     AdvancedPlayer playMP3;
     Thread thread2;
-    Thread thread3;
+
+    boolean running = true;
 
     Lieder()
     {
@@ -27,6 +35,7 @@ public class Lieder {
                 while(true) {
                     try {
                         thread2.sleep(0,1);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -51,15 +60,11 @@ public class Lieder {
         catch(Exception e) {}
     }
 
-
-    public void liederSuchen() {
-        thread3 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-        thread3.start();
+    public void liederAnzeigen(Graphics2D g)
+    {
+        g.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
+        g.fillRect(game.actualwidth/2, 0,game.actualwidth,game.actualheight/20);
+        g.drawString(lied.toString(), game.actualheight/2, 0);
     }
 
 }

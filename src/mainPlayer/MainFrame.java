@@ -31,10 +31,12 @@ public class MainFrame extends JPanel{
                         if (game.playOrPause) {
                             game.playOrPause = false;
                             game.lieder.liederImportieren();
+
                         } else {
                             game.playOrPause = true;
                             try {
                                 game.lieder.playMP3.close();
+
                             } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
@@ -81,6 +83,7 @@ public class MainFrame extends JPanel{
         playButton.renderButtons(g);
         playButton.koordsUpdate(game.actualwidth/4-25,game.actualheight/12-25,50,50);
         ButtonPictures.getParameters(game,g,game.actualwidth,game.actualheight);
+        game.lieder.liederAnzeigen(g);
         if(game.playOrPause){
             ButtonPictures.createPlay();
         }

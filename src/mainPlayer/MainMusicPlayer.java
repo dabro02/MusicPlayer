@@ -9,6 +9,7 @@ public class MainMusicPlayer {
     MainFrame frame1;
     JFrame frame;
     Lieder lieder;
+    LiederSuchen liederSuchen;
     static boolean playOrPause = true;
 
     int actualwidth = 1366;
@@ -23,6 +24,7 @@ public class MainMusicPlayer {
     }
         public void start()
         {
+            this.liederSuchen = new LiederSuchen();
             this.lieder = new Lieder();
             frame = new JFrame("dabromusic");
             frame1 = new MainFrame(this);
