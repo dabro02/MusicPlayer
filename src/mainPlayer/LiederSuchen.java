@@ -13,10 +13,11 @@ public class LiederSuchen {
 
     Thread thread3;
     LiederSuchen(){
+        ArrayList mp3Dateien = null;
         thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
-                ArrayList mp3Dateien = null;
+
                 liederSuchen("C:/Users", mp3Dateien);
                 System.out.println("finished");
                 System.out.println(mp3Dateien);
@@ -41,11 +42,7 @@ public class LiederSuchen {
                 }
 
                 //funktioniert noch nciht die boolean abfrage
-                if(ifMP3(newPathname)){
-                    ifMP3(newPathname);
-                    mp3Dateien.add(file);
-
-                }
+                ifMP3(newPathname, file, mp3Dateien);
 
                 //System.out.println(newPathname);
             }
@@ -56,15 +53,14 @@ public class LiederSuchen {
         }
     }
 
-    public boolean ifMP3(String pathname)
+    public void ifMP3(String pathname, File file, ArrayList mp3Dateien)
     {
         if(pathname.substring(pathname.length()-3, pathname.length()).equalsIgnoreCase("mp3") ){
             System.out.println(pathname.substring(pathname.length()-3, pathname.length()));
-            System.out.println(pathname);
-            return true;
+            //return true;
         }
         else {
-            return false;
+            //return false;
         }
 
     }
