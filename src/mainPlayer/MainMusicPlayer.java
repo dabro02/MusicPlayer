@@ -25,6 +25,7 @@ public class MainMusicPlayer {
         public void start()
         {
             this.liederSuchen = new LiederSuchen();
+
             this.lieder = new Lieder();
             frame = new JFrame("dabromusic");
             frame1 = new MainFrame(this);
