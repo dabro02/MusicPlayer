@@ -1,12 +1,9 @@
 package mainPlayer;
 
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 
 /**
@@ -16,16 +13,16 @@ public class LiederSuchen {
 
     Thread thread3;
     LiederSuchen() {
+        ArrayList<File> mp3files = new ArrayList<>();
         thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
-                ArrayList<File> mp3files = new ArrayList();
                 saveAsTxt(liederSuchen("C:/Users/Daniel/Music", mp3files));
-
-                System.out.println( mp3files.size());
+                System.out.println(mp3files.size());
             }
         });
         thread3.start();
+
     }
 
     public ArrayList<File> liederSuchen(String pathname, ArrayList<File> mp3files) {
@@ -40,7 +37,6 @@ public class LiederSuchen {
                 if (file.isDirectory()) {
                     liederSuchen(newPathname, mp3files);
                 }
-                //funktioniert noch nciht die boolean abfrage
                 ifMP3(newPathname, file, mp3files);
             }
 
@@ -70,12 +66,13 @@ public class LiederSuchen {
 
             }
         }
-        else{
+
             try {
                 PrintWriter fw = new PrintWriter(mp3Dateien);
                 for(int i = 0 ; i<mp3files.size(); i++)
                 {
-                    fw.write(mp3files.get(i).getAbsolutePath()+"\n");
+                    fw.write(i+mp3files.get(i).getAbsolutePath()+"\n");
+
                 }
 
 
@@ -83,7 +80,6 @@ public class LiederSuchen {
                 e.printStackTrace();
             }
 
-        }
     }
 
 
