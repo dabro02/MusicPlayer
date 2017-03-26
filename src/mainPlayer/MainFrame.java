@@ -30,16 +30,12 @@ public class MainFrame extends JPanel{
                     {
                         if (game.playOrPause) {
                             game.playOrPause = false;
-                            game.lieder.liederImportieren();
+                            game.lieder.liederStarten();
 
-                        } else {
+                        }
+                        else {
                             game.playOrPause = true;
-                            try {
-                                game.lieder.playMP3.close();
-
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
-                            }
+                            game.lieder.liederStoppen();
                         }
                     }
                 }

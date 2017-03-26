@@ -19,45 +19,30 @@ import static mainPlayer.ButtonPictures.game;
  */
 
 public class Lieder {
-    /*Liederklasse
-    hieraus können die Lieder geladen werden
-    eventuelle methode .getLieder , die dann die audio dateien ausließt und abspielen kann
-     */
     FileInputStream lied;
     AdvancedPlayer playMP3;
+    boolean running = false;
+    int  pausedOnFrame=0;
     Thread thread2;
-
-    boolean running = true;
 
     Lieder()
     {
         liederImportieren();
-        thread2 = new Thread(new Runnable (){
-            @Override public void run() {
-                while(true) {
-                    try {
-                        thread2.sleep(0,1);
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (!game.playOrPause) {
-                            try {
-                                playMP3.play();
-                            } catch (JavaLayerException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-        });
-        thread2.start();
     }
 
     public  void liederImportieren(){
         try {
             lied = new FileInputStream("src/mainPlayer/Liedertest/Alan Walker - Alone.mp3");
             playMP3 = new AdvancedPlayer(this.lied);
+            playMP3.setPlayBackListener(new PlaybackListener() {
+                @Override
+                public void playbackStarted(PlaybackEvent playbackEvent) {
+                    super.playbackStarted(playbackEvent);
+                    pausedOnFrame = playbackEvent.getFrame();
+                    System.out.println(playbackEvent.getFrame());
+                }
+            });
         }
         catch(Exception e) {}
     }
@@ -69,4 +54,43 @@ public class Lieder {
         g.drawString(lied.toString(), game.actualheight/2, 0);
     }
 
+    public void liederStarten()
+    {
+        if(!running) {
+            liederImportieren();
+
+            thread2 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        running = true;
+                            playMP3.play(pausedOnFrame, Integer.MAX_VALUE);
+                    } catch (JavaLayerException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            thread2.start();
+        }
+    }
+
+    public void liederStoppen()
+    {
+        if(running) {
+
+
+            playMP3.setPlayBackListener(new PlaybackListener() {
+                @Override
+                public void playbackFinished(PlaybackEvent playbackEvent) {
+                    super.playbackFinished(playbackEvent);
+                    pausedOnFrame = playbackEvent.getFrame();
+                    System.out.println(playbackEvent.getFrame());
+                }
+            });
+            playMP3.stop();
+            running = false;
+            System.out.println("ja");
+        }
+    }
 }

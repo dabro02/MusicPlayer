@@ -71,12 +71,15 @@ public class LiederSuchen {
                 PrintWriter fw = new PrintWriter(mp3Dateien);
                 for(int i = 0 ; i<mp3files.size(); i++)
                 {
+
                     fw.write(i+mp3files.get(i).getAbsolutePath()+"\n");
 
                 }
-
+                Thread.sleep(1000);
 
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
