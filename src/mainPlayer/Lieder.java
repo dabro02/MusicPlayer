@@ -24,6 +24,7 @@ public class Lieder {
     boolean running = false;
     int  pausedOnFrame=0;
     Thread thread2;
+    Thread thread3;
 
     Lieder()
     {
@@ -35,14 +36,15 @@ public class Lieder {
         try {
             lied = new FileInputStream("src/mainPlayer/Liedertest/Alan Walker - Alone.mp3");
             playMP3 = new AdvancedPlayer(this.lied);
-            playMP3.setPlayBackListener(new PlaybackListener() {
+            /*playMP3.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackStarted(PlaybackEvent playbackEvent) {
                     super.playbackStarted(playbackEvent);
                     pausedOnFrame = playbackEvent.getFrame();
                     System.out.println(playbackEvent.getFrame());
                 }
-            });
+            });*/
+
         }
         catch(Exception e) {}
     }
@@ -56,15 +58,26 @@ public class Lieder {
 
     public void liederStarten()
     {
+
         if(!running) {
             liederImportieren();
-
+            if(pausedOnFrame == 0){
+                /*playMP3.setPlayBackListener(new PlaybackListener() {
+                    @Override
+                    public void playbackStarted(PlaybackEvent playbackEvent) {
+                        super.playbackStarted(playbackEvent);
+                        pausedOnFrame = playbackEvent.getFrame();
+                    }
+                });*/
+            }
             thread2 = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         running = true;
+                            updatePlayBackListener();
                             playMP3.play(pausedOnFrame, Integer.MAX_VALUE);
+
                     } catch (JavaLayerException e) {
                         e.printStackTrace();
                     }
@@ -78,19 +91,42 @@ public class Lieder {
     public void liederStoppen()
     {
         if(running) {
-
-
-            playMP3.setPlayBackListener(new PlaybackListener() {
+            /*playMP3.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackFinished(PlaybackEvent playbackEvent) {
                     super.playbackFinished(playbackEvent);
                     pausedOnFrame = playbackEvent.getFrame();
                     System.out.println(playbackEvent.getFrame());
                 }
-            });
+            });*/
             playMP3.stop();
             running = false;
-            System.out.println("ja");
         }
+    }
+
+    public void updatePlayBackListener()
+    {
+                playMP3.setPlayBackListener(new PlaybackListener() {
+                    @Override
+                    public void playbackFinished(PlaybackEvent playbackEvent) {
+                        super.playbackFinished(playbackEvent);
+
+                        thread3 = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while(running){
+                                pausedOnFrame = pausedOnFrame+1;
+                                try {
+                                    thread3.sleep(25);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                System.out.println(pausedOnFrame);
+                        }
+                    }
+                });
+            }
+        });
+        thread3.start();
     }
 }

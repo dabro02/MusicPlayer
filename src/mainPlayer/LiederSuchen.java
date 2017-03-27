@@ -69,7 +69,7 @@ public class LiederSuchen {
 
             try {
                 PrintWriter fw = new PrintWriter(mp3Dateien);
-                for(int i = 0 ; i<mp3files.size(); i++)
+                for(int i = 0 ; i<mp3files.size(); ++i)
                 {
 
                     fw.write(i+mp3files.get(i).getAbsolutePath()+"\n");
