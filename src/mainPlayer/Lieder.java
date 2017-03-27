@@ -117,6 +117,7 @@ public class Lieder {
                                 while(running){
                                 pausedOnFrame = pausedOnFrame+1;
                                 try {
+                                    //habe versucht das lied durch dieses hier in zahlen darzustellen, weil die getFrame() methode des PlaybackEvents nicht wirklich funktioniert
                                     thread3.sleep(25);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
