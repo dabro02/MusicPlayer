@@ -1,6 +1,5 @@
 package mainPlayer;
 
-import javazoom.jl.decoder.JavaLayerException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,7 +29,7 @@ public class MainFrame extends JPanel{
                     {
                         if (game.playOrPause) {
                             game.playOrPause = false;
-                            game.lieder.liederStarten();
+                            game.lieder.running = true;
 
                         }
                         else {

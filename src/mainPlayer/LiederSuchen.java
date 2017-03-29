@@ -54,36 +54,28 @@ public class LiederSuchen {
         }
     }
 
-    public void saveAsTxt(ArrayList<File> mp3files)
-    {
+    public void saveAsTxt(ArrayList<File> mp3files) {
         File mp3Dateien = new File("mp3dateien.txt");
-        if(!mp3Dateien.exists())
-        {
-            try{
+        if (!mp3Dateien.exists()) {
+            try {
                 mp3Dateien.createNewFile();
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
 
             }
         }
 
-            try {
-                PrintWriter fw = new PrintWriter(mp3Dateien);
-                for(int i = 0 ; i<mp3files.size(); ++i)
-                {
+        try {
+            PrintWriter fw = new PrintWriter(mp3Dateien);
+            for (int i = 0; i < mp3files.size(); ++i) {
 
-                    fw.write(i+mp3files.get(i).getAbsolutePath()+"\n");
+                fw.write(i + mp3files.get(i).getAbsolutePath() + "\n");
 
-                }
-                Thread.sleep(1000);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
-
-
 }
